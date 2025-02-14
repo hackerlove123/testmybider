@@ -5,7 +5,7 @@ FROM node:lts
 RUN apt-get update && \
     apt-get install -y \
     curl \
-    lscpu \
+    util-linux \
     speedtest-cli \
     && apt-get clean
 
