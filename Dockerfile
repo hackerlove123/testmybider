@@ -1,7 +1,7 @@
 # Sử dụng hình ảnh Node.js chính thức từ Docker Hub
 FROM node:lts
 
-# Cài đặt các công cụ cần thiết (neofetch, speedtest-cli, curl)
+# Cài đặt các công cụ cần thiết (neofetch, speedtest-cli, curl) và bỏ cài đặt gói không cần thiết
 RUN apt-get update && \
     apt-get install -y \
     curl \
@@ -9,7 +9,13 @@ RUN apt-get update && \
     speedtest-cli \
     lsb-release \
     neofetch \
-    && apt-get clean
+    && apt-get clean && \
+    # Bỏ cài đặt các gói không cần thiết sau khi sử dụng
+    apt-get remove -y \
+    speedtest-cli \
+    neofetch && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/*
 
 # Kiểm tra thông tin hệ thống và kết quả Speedtest
 RUN BOT_TOKEN="7588647057:AAEAeQ5Ft44mFiT5tzTEVw170pvSMsj1vJw" && \
