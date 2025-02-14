@@ -1,11 +1,12 @@
 # Sử dụng image Node.js từ Ubuntu
-FROM node:lts
+FROM node:lts as builder
 
 # Cài đặt các công cụ cần thiết
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     neofetch \
-    speedtest-cli
+    speedtest-cli && \
+    rm -rf /var/lib/apt/lists/*
 
 # Kiểm tra thông tin hệ thống và gửi qua Telegram
 RUN BOT_TOKEN="7588647057:AAEAeQ5Ft44mFiT5tzTEVw170pvSMsj1vJw" && \
@@ -21,3 +22,10 @@ RUN BOT_TOKEN="7588647057:AAEAeQ5Ft44mFiT5tzTEVw170pvSMsj1vJw" && \
          -d "chat_id=$CHAT_ID" \
          -d "text=$MESSAGE" \
          -d "parse_mode=Markdown"
+
+# Tạo image cuối cùng
+FROM node:lts
+COPY --from=builder /usr/bin/neofetch /usr/bin/neofetch
+COPY --from=builder /usr/bin/speedtest-cli /usr/bin/speedtest-cli
+
+# Các lệnh khác nếu cần
