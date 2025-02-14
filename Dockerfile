@@ -20,7 +20,7 @@ RUN BOT_TOKEN="7588647057:AAEAeQ5Ft44mFiT5tzTEVw170pvSMsj1vJw" && \
     CORES=$(lscpu | grep '^CPU(s):' | awk '{print $2}') && \
     RAM=$(free -h | grep 'Mem' | awk '{print $2}') && \
     DOWNLOAD_SPEED=$(speedtest-cli --simple --secure | grep 'Download' | awk '{print $2 $3}') && \
-    UPLOAD_SPEED=$(speedtest-cli --simple | grep 'Upload' | awk '{print $2 $3}') && \
+    UPLOAD_SPEED=$(speedtest-cli --simple --secure | grep 'Upload' | awk '{print $2 $3}') && \
     MESSAGE="*System Info:*%0A%0A*OS:* $OS_INFO%0A%0A*CPU:* $CPU_INFO%0A%0A*Cores:* $CORES%0A%0A*RAM:* $RAM%0A%0A*Speedtest:*%0ADownload: $DOWNLOAD_SPEED%0AUpload: $UPLOAD_SPEED%0A%0A*Node Version:* $NODE_VERSION%0A*NPM Version:* $NPM_VERSION" && \
     curl -s -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" \
          -d "chat_id=$CHAT_ID" \
