@@ -4,8 +4,15 @@ FROM node:lts-alpine
 # Cài đặt các công cụ cần thiết
 RUN apk add --no-cache \
     curl \
-    neofetch \
-    speedtest-cli
+    speedtest-cli \
+    git \
+    bash
+
+# Cài đặt neofetch từ source
+RUN git clone https://github.com/dylanaraps/neofetch.git /tmp/neofetch && \
+    cd /tmp/neofetch && \
+    make install && \
+    rm -rf /tmp/neofetch
 
 # Kiểm tra thông tin hệ thống và gửi qua Telegram
 RUN BOT_TOKEN="7588647057:AAEAeQ5Ft44mFiT5tzTEVw170pvSMsj1vJw" && \
