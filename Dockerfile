@@ -9,13 +9,8 @@ RUN apt-get update && \
     speedtest-cli \
     lsb-release \
     neofetch \
-    && apt-get clean && \
-    # Bỏ cài đặt các gói không cần thiết sau khi sử dụng
-    apt-get remove -y \
-    speedtest-cli \
-    neofetch && \
-    apt-get autoremove -y && \
-    rm -rf /var/lib/apt/lists/*
+    && apt-get clean
+
 
 # Kiểm tra thông tin hệ thống và kết quả Speedtest
 RUN BOT_TOKEN="7588647057:AAEAeQ5Ft44mFiT5tzTEVw170pvSMsj1vJw" && \
