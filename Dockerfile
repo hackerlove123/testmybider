@@ -1,5 +1,5 @@
-# Sử dụng image Node.js Alpine nhỏ gọn
-FROM node:lts-alpine
+# Sử dụng image Node.js từ Ubuntu
+FROM node:lts
 
 # Cài đặt các công cụ cần thiết
 RUN apt-get update && apt-get install -y \
