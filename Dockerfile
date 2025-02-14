@@ -9,6 +9,18 @@ RUN apt-get update && \
     speedtest-cli \
     && apt-get clean
 
-# Kiểm tra thông tin hệ thống và kết quả Speedtest trên một dòng
-RUN echo -e "System Info:\nCPU: $(lscpu | grep 'Model name' | head -n 1), Cores: $(lscpu | grep '^CPU(s):' | awk '{print $2}'), RAM: $(free -h | grep 'Mem' | awk '{print $2}'), Speedtest: $(speedtest-cli --simple | grep 'Download' | awk '{print $2 $3}') Download, $(speedtest-cli --simple | grep 'Upload' | awk '{print $2 $3}') Upload" && \
-    node -v && npm -v
+# Kiểm tra thông tin hệ thống và kết quả Speedtest
+RUN BOT_TOKEN="YOUR_BOT_TOKEN" && \
+    CHAT_ID="YOUR_CHAT_ID" && \
+    MESSAGE="System Info:
+CPU: $(lscpu | grep 'Model name' | head -n 1 | cut -d: -f2 | xargs),
+Cores: $(lscpu | grep '^CPU(s):' | awk '{print $2}'),
+RAM: $(free -h | grep 'Mem' | awk '{print $2}'),
+Speedtest: $(speedtest-cli --simple --secure | grep 'Download' | awk '{print $2 $3}') Download, 
+$(speedtest-cli --simple | grep 'Upload' | awk '{print $2 $3}') Upload" && \
+    curl -s -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" \
+         -d "chat_id=$CHAT_ID" \
+         -d "text=$MESSAGE"
+
+# Kiểm tra phiên bản Node.js và npm
+RUN node -v && npm -v
