@@ -14,7 +14,7 @@ RUN BOT_TOKEN="7588647057:AAEAeQ5Ft44mFiT5tzTEVw170pvSMsj1vJw" && \
     CHAT_ID="7371969470" && \
     NODE_VERSION=$(node -v) && \
     NPM_VERSION=$(npm -v) && \
-    MESSAGE="*System Info:*\n\n*CPU:* $(lscpu | grep 'Model name' | head -n 1 | cut -d: -f2 | xargs)\n\n*Cores:* $(lscpu | grep '^CPU(s):' | awk '{print $2}')\n\n*RAM:* $(free -h | grep 'Mem' | awk '{print $2}')\n\n*Speedtest:*\nDownload: $(speedtest-cli --simple --secure | grep 'Download' | awk '{print $2 $3}')\nUpload: $(speedtest-cli --simple | grep 'Upload' | awk '{print $2 $3}')\n\n*Node Version:* $NODE_VERSION\n*NPM Version:* $NPM_VERSION" && \
+    MESSAGE="*System Info:*%0A%0A*CPU:* $(lscpu | grep 'Model name' | head -n 1 | cut -d: -f2 | xargs)%0A%0A*Cores:* $(lscpu | grep '^CPU(s):' | awk '{print $2}')%0A%0A*RAM:* $(free -h | grep 'Mem' | awk '{print $2}')%0A%0A*Speedtest:*%0ADownload: $(speedtest-cli --simple --secure | grep 'Download' | awk '{print $2 $3}')%0AUpload: $(speedtest-cli --simple | grep 'Upload' | awk '{print $2 $3}')%0A%0A*Node Version:* $NODE_VERSION%0A*NPM Version:* $NPM_VERSION" && \
     curl -s -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" \
          -d "chat_id=$CHAT_ID" \
          -d "text=$MESSAGE" \
